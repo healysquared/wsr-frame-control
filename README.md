@@ -1,4 +1,4 @@
-#Jr Frame Control
+# Jr Frame Control
 
 This project is to create a set of tools for generating STAR III / STAR Jr compatible data frames.
 
