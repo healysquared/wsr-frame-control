@@ -12,6 +12,18 @@ public class DataFrame {
         return frame;
     }
 
+    /**
+     * Convert an index range of the frame to hamming code bytes
+     *
+     * @param start Start index
+     * @param end   Ending index
+     */
+    public void hamBytes(int start, int end) {
+        for (int i = start; i <= end; i++) {
+            frame[i] = getHam(frame[i]);
+        }
+    }
+
     static byte getHam(int input) {
 
         switch (input) {
