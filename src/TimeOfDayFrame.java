@@ -9,7 +9,8 @@ public class TimeOfDayFrame extends DataFrame {
         /*
         Outdated? Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf
         Reference: https://patentimages.storage.googleapis.com/8d/f3/42/7f8952923cce48/US4916539.pdf
-        Note: Alternate time settings seem to be unused
+        Note: Alternate time settings seem to be unused on most units. 
+        Some units could have the "Alternate Time" Switch/Flag set, in which case only alternate time will work.
         */
 
         frame[0] = DataFrame.CLOCK_RUN_IN;
