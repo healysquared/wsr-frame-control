@@ -6,6 +6,12 @@ public class TimeOfDayFrame extends DataFrame {
     public TimeOfDayFrame(int timeZone) {
         // TODO: Should parameters be set in the constructor or should we use a builder class here?
 
+        /*
+        Outdated? Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf
+        Reference: https://patentimages.storage.googleapis.com/8d/f3/42/7f8952923cce48/US4916539.pdf
+        Note: Alternate time settings seem to be unused
+        */
+
         frame[0] = DataFrame.CLOCK_RUN_IN;
         frame[1] = DataFrame.CLOCK_RUN_IN;
         frame[2] = DataFrame.FRAMING_CODE;
@@ -14,7 +20,7 @@ public class TimeOfDayFrame extends DataFrame {
         frame[5] = 0;  // "
         frame[6] = 0;  // "
         frame[7] = 0;  // "
-        frame[8] = 0;  // Page number
+        frame[8] = 0;  // Page number: 0 for TOD
         frame[9] = 0;  // "
         frame[10] = 0; // Timezone
         frame[11] = 0; // Day of Week
@@ -27,36 +33,34 @@ public class TimeOfDayFrame extends DataFrame {
         frame[18] = 0; // Seconds
         frame[19] = 0; // "
         frame[20] = 0; // AM/PM (0=AM; 1=PM)
-        frame[21] = 0;
-        frame[22] = 0;
-        frame[23] = 0;
-        frame[24] = 0;
-        frame[25] = 0;
-        frame[26] = 0;
-        frame[27] = 0;
-        frame[28] = 0;
-        frame[29] = 0;
-        frame[30] = 0;
+        frame[21] = 0; // Alt. Day of Week
+        frame[22] = 0; // Alt. Month
+        frame[23] = 0; // Alt. Day of Month
+        frame[24] = 0; // "
+        frame[25] = 0; // Alt. Hours
+        frame[26] = 0; // Alt. Minutes
+        frame[27] = 0; // "
+        frame[28] = 0; // Alt. Seconds
+        frame[29] = 0; // "
+        frame[30] = 0; // Alt. AM/PM
         frame[31] = 0; // Checksum
         frame[32] = 0; // "
         frame[33] = 0; // OMCW Extension
         frame[34] = 0; // "
-        frame[35] = 0; // Unused
-        frame[36] = 0; // "
+        frame[35] = 0; // Spare
+        frame[36] = 0; // Spare
 
         // This packet contains a checksum, which is just indexes 3-30 summed
-
         int checksum = 0;
         for (int i = 3; i <= 30; i++) {
             checksum += frame[i];
         }
 
         // I think this is how you would split this up
-        // https://stackoverflow.com/a/1735855/1385710
-        frame[31] = (byte) (checksum & 0xFF);
-        frame[32] = (byte) ((checksum >> 8) & 0xFF);
+        frame[31] = (byte) (checksum & 0b11110000); // Low byte
+        frame[32] = (byte) (checksum & 0b00001111); // High byte
 
-        // Convert bytes 3-36 to hamming
+        // Convert bytes 3-36 to hamming code
         hamBytes(3, 36);
 
     }
