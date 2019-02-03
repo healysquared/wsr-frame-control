@@ -53,13 +53,13 @@ public class TimeOfDayFrame extends DataFrame {
 
         // This packet contains a checksum, which is just indexes 3-30 summed
         int checksum = 0;
-        for (int i = 3; i <= 30; i++) {
+        for (int i = 10; i <= 30; i++) {
             checksum += frame[i];
         }
 
-        // I think this is how you would split this up
-        frame[31] = (byte) (checksum & 0b11110000); // Low byte
-        frame[32] = (byte) (checksum & 0b00001111); // High byte
+        // Split the checksum into separate nibbles
+        frame[31] = (byte) ((checksum >> 4) & 0x0F); // High byte
+        frame[32] = (byte) (checksum & 0x0F); // Low byte
 
         // Convert bytes 3-36 to hamming code
         hamBytes(3, 36);
