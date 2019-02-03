@@ -8,4 +8,8 @@ public class Address
     {
       //
     }
+    public Address()
+    {
+       //Default constructor. Zero out address if called.
+    }
 }
