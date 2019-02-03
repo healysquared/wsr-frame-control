@@ -51,7 +51,7 @@ public class TimeOfDayFrame extends DataFrame {
         frame[35] = 0; // Spare
         frame[36] = 0; // Spare
 
-        // This packet contains a checksum, which is just indexes 3-30 summed
+        // This packet contains a checksum, which is just indexes 10-30 summed
         int checksum = 0;
         for (int i = 10; i <= 30; i++) {
             checksum += frame[i];
