@@ -8,6 +8,7 @@ public class Address
    private int zone;
    private int county;
    private int unit;
+   private byte[] address;
 
     public Address(int serviceID, int zone, int county, int unit)
     {
@@ -23,5 +24,9 @@ public class Address
        zone = 0;
        county = 0;
        unit = 0;
+    }
+    private createAddressArray()
+    {
+       address = new byte[6];
     }
 }
