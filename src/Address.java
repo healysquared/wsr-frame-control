@@ -4,7 +4,7 @@
 public class Address
 {
 
-    public Address(int serviceID)
+    public Address(int serviceID, int zone, int county, int unit)
     {
       //
     }
