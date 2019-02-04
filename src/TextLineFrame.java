@@ -1,3 +1,5 @@
+import java.nio.charset.StandardCharsets;
+
 public class TextLineFrame extends DataFrame {
 
     public TextLineFrame(int rowNumber, byte textSize, String text) {
@@ -12,9 +14,43 @@ public class TextLineFrame extends DataFrame {
         frame[2] = DataFrame.FRAMING_CODE;
         frame[3] = (byte) rowNumber;  // Row Number
         frame[4] = (byte) 0b0010;  // Height/Width
-        // TODO: 4-36 are characters
+
+        // Convert the string to odd-parity ASCII and append it to the frame
+        byte[] textBytes = text.getBytes(StandardCharsets.US_ASCII);
+        int startIndex = 5;
+        for (byte i : textBytes) {
+            if (startIndex >= frame.length) continue; // Text lines have a max of 32 characters
+            frame[startIndex] = calculateOddParity(i);
+            startIndex++;
+        }
 
         // Only 3 and 4 are hamming code here
         hamBytes(3, 4);
     }
+
+    byte calculateOddParity(byte input) {
+
+        // We need to find the sum of all the 1 bits in this byte
+        int count = 0;
+        boolean isLastBitOne = false;
+        byte shifted = input;
+
+        for (int i = 0; i <= 8; i++) {
+            if ((shifted & 1) == 1) {
+                count++;
+            }
+            shifted = (byte) (shifted >> 1); // shift at the end so we can count the first bit
+        }
+
+        if (count % 2 == 1) {
+            // Odd number of 1 bits, set the first bit to 1
+            input |= 1 << 7;
+        } else {
+            // Even number of 1 bits, set the first bit to 0
+            input &= ~(1 << 7);
+        }
+
+        return input;
+    }
+
 }
