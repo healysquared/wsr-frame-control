@@ -1,7 +1,7 @@
 /**
  * Class used to create an OMCW
  */
-public class OMCW extends DataFrame
+public class OMCW
 {
     //Declare variables for the integer representation of the constructors parameters.
     private int localProgram;
