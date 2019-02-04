@@ -13,6 +13,7 @@ public class OMCW
     private int topSolid;
     private int botSolid;
 
+    private byte[] omcwBytes = new byte[6];
     //These will be the bytes that we're going to be manipulating. Cast them to the frame.
     private int b4,b5,b6,b7,b8,b9 = 0b0000; //Set these to 0. We'll be manipulating these with bitwise operators.
 
@@ -64,11 +65,12 @@ public class OMCW
         //Byte 9
 
         //Assign the newly created OMCW bytes to the frame!
-        frame[4] = (byte) this.b4;  // OMCW
-        frame[5] = (byte) this.b5;  // "
-        frame[6] = (byte) this.b6;  // "
-        frame[7] = (byte) this.b7;  // "
-        frame[8] = (byte) this.b8;  // Page number: 0 for TOD
-        frame[9] = (byte) this.b9;  // "
+        omcwBytes[4] = (byte) this.b4;  // OMCW
+        omcwBytes[5] = (byte) this.b5;  // "
+        omcwBytes[6] = (byte) this.b6;  // "
+        omcwBytes[7] = (byte) this.b7;  // "
+        omcwBytes[8] = (byte) this.b8;  // Page number: 0 for TOD
+        omcwBytes[9] = (byte) this.b9;  // "
+     
     }
 }
