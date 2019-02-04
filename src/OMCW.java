@@ -64,11 +64,11 @@ public class OMCW
 
         //Byte 8
         //TODO: Is this a part of the OMCW...? Or should it be in a different class?
-        this.b8 = topPageNum & 0xF0; //Top Page Number MSB
+        this.b8 = getHam.Hammable(( byte)(topPageNum & 0xF0)); //Top Page Number MSB
 
         //Byte 9
         //TODO: Is this a part of the OMCW...? Or shold it be in a different class?
-        this.b9 = topPageNum & 0xF; //Low Page Number LSB
+        this.b9 = getHam.Hammable((byte)(topPageNum & 0xF)); //Low Page Number LSB
 
         //Assign the newly created OMCW bytes to the frame!
         omcwBytes[4] = (byte) this.b4;  // OMCW
