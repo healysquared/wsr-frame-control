@@ -1,13 +1,13 @@
 /**
  * Packet used to set the clock
  */
-public class TimeOfDayFrame extends DataFrame {
+public class TimeOfDayFrame extends ControlFrame {
 
     public TimeOfDayFrame(int timeZone) {
         // TODO: Should parameters be set in the constructor or should we use a builder class here?
 
         /*
-        Outdated? Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf
+        Prior Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf
         Reference: https://patentimages.storage.googleapis.com/8d/f3/42/7f8952923cce48/US4916539.pdf
         Note: Alternate time settings seem to be unused on most units. 
         Some units could have the "Alternate Time" Switch/Flag set, in which case only alternate time will work.
@@ -16,12 +16,9 @@ public class TimeOfDayFrame extends DataFrame {
         frame[0] = DataFrame.CLOCK_RUN_IN;
         frame[1] = DataFrame.CLOCK_RUN_IN;
         frame[2] = DataFrame.FRAMING_CODE;
-        frame[3] = 0;  // Row number: 0
-        frame[4] = 0;  // OMCW
-        frame[5] = 0;  // "
-        frame[6] = 0;  // "
-        frame[7] = 0;  // "
-        frame[8] = 0;  // Page number: 0 for TOD
+        frame[3] = 0;  // Row Number: 0
+        // 4-7 OMCW
+        frame[8] = 0;  // Page Number: 0 for TOD
         frame[9] = 0;  // "
         frame[10] = 0; // Timezone
         frame[11] = 0; // Day of Week
@@ -50,6 +47,9 @@ public class TimeOfDayFrame extends DataFrame {
         frame[34] = 0; // "
         frame[35] = 0; // Spare
         frame[36] = 0; // Spare
+
+        // Set bytes 4-7 for OMCW
+        setOmcwBytes();
 
         // This packet contains a checksum, which is just indexes 10-30 summed
         int checksum = 0;
