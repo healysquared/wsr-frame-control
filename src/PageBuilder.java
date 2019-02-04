@@ -1,20 +1,23 @@
 public class PageBuilder {
 
     private int pageNumber;
-    private byte pageAttributes;
     private OMCW omcw;
     private Address address;
+    private PageAttributes attributes;
     private TextLineFrame[] textFrames = new TextLineFrame[9]; // Max of 9 lines per page
 
     public PageBuilder(int pageNumber) {
         this.pageNumber = pageNumber;
+        this.attributes = new PageAttributes();
+        this.address = new Address();
     }
 
     /**
      * Set the attributes for this page
+     * TODO: Maybe also put all the attributes here as setters
      */
-    public PageBuilder setAttributes(byte pageAttributes) {
-        this.pageAttributes = pageAttributes;
+    public PageBuilder setAttributes(PageAttributes attributes) {
+        this.attributes = attributes;
         return this;
     }
 
@@ -27,10 +30,23 @@ public class PageBuilder {
     }
 
     /**
-     * Set the address for this page
+     * Set the unit address for this page
      */
     public PageBuilder setAddress(Address address) {
         this.address = address;
+        return this;
+    }
+
+    /***
+     * Add a text line
+     * @param lineNumber Line Number
+     * @param text       Text
+     * @param textSize   Text Size
+     * @param attributes Line Attributes
+     * TODO: figure out a cleaner way of adding attributes here, maybe a TextLineBuilder?
+     */
+    public PageBuilder addLine(int lineNumber, String text, byte textSize, TextLineAttributes attributes) {
+        textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
         return this;
     }
 
@@ -42,8 +58,7 @@ public class PageBuilder {
      * @param textSize   Text Size
      */
     public PageBuilder addLine(int lineNumber, String text, byte textSize) {
-        textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
-        return this;
+        return addLine(lineNumber, text, (byte) 0b0010, new TextLineAttributes());
     }
 
     /**
@@ -67,12 +82,12 @@ public class PageBuilder {
         DataFrame[] frames = new DataFrame[lineCount + 1];
 
         // Add the header to our output frames
-        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount);
+        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount, address, attributes);
 
         // Add all of the text lines
-        for (int i = 0; i <= textFrames.length; i++) {
-            if (textFrames[i] == null) continue;
-            frames[frameIndex] = textFrames[i];
+        for (TextLineFrame textFrame : textFrames) {
+            if (textFrame == null) continue;
+            frames[frameIndex] = textFrame;
             frameIndex++;
         }
 
@@ -84,8 +99,8 @@ public class PageBuilder {
      */
     private int getLineCount() {
         int count = 0;
-        for (int i = 0; i <= textFrames.length; i++) {
-            if (textFrames[i] != null) count++;
+        for (TextLineFrame textFrame : textFrames) {
+            if (textFrame != null) count++;
         }
         return count;
     }

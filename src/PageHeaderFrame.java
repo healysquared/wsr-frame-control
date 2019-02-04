@@ -1,11 +1,13 @@
 public class PageHeaderFrame extends ControlFrame {
 
-    public PageHeaderFrame(int pageNumber, int lineCount) {
+    public PageHeaderFrame(int pageNumber, int lineCount, Address address, PageAttributes attributes) {
 
         /*
         Prior Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf
         Reference: https://patentimages.storage.googleapis.com/8d/f3/42/7f8952923cce48/US4916539.pdf
         */
+
+        byte[] attributeBytes = attributes.buildAttributes();
 
         frame[0] = DataFrame.CLOCK_RUN_IN;
         frame[1] = DataFrame.CLOCK_RUN_IN;
@@ -20,9 +22,9 @@ public class PageHeaderFrame extends ControlFrame {
         frame[13] = 0; // "
         frame[14] = 0; // "
         frame[15] = 0; // "
-        frame[16] = (byte) lineCount; // Line Count
-        frame[17] = 0; // Page Attributes
-        frame[18] = 0; // "
+        frame[16] = (byte) lineCount;   // Line Count
+        frame[17] = attributeBytes[0];  // Page Attributes
+        frame[18] = attributeBytes[1];  // "
         frame[19] = 0; // Line 1 Attributes
         frame[20] = 0; // "
         frame[21] = 0; // Line 2 Attributes
@@ -44,6 +46,8 @@ public class PageHeaderFrame extends ControlFrame {
 
         // Set bytes 4-7 for OMCW
         setOmcwBytes();
+
+        // TODO: Set address
 
         // Convert bytes 3-36 to hamming code
         hamBytes(3, 36);

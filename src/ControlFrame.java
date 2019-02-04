@@ -7,6 +7,9 @@ public class ControlFrame extends DataFrame {
     }
 
     void setOmcwBytes() {
+        if (omcw == null) {
+            return;
+        }
         // OMCW is always at bytes 4-7
         byte[] omcwBytes = omcw.getOmcwBytes();
         frame[4] = omcwBytes[0];

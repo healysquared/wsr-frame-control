@@ -6,10 +6,21 @@ public class DataFrame {
     static final byte CLOCK_RUN_IN = (byte) 0xAA;
     static final byte FRAMING_CODE = (byte) 0xE4;
 
-    byte[] frame = new byte[36];
+    byte[] frame = new byte[37];
 
     public byte[] getFrame() {
         return frame;
+    }
+
+    /**
+     * @return A string of HEX values for debugging purposes
+     */
+    public String getFrameAsString() {
+        StringBuilder out = new StringBuilder();
+        for (byte i : frame) {
+            out.append(String.format("%02X ", i & 0xFF));
+        }
+        return out.toString();
     }
 
     /**
