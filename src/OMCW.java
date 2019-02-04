@@ -56,13 +56,19 @@ public class OMCW
         this.b5 = this.radar | this.regionSeparator | this.topSolid | this.botSolid; //Generate the nibble.
         this.b5 = getHam.Hammable((byte)this.b4); //Ham the nibble.
 
-        //Byte 6 (Top Page Number - Most significant four bits)
+        //Byte 6 (Top Page Number - Most significant four bits. No need for a topPageNumMSB variable.)
+        this.b6 = getHam.Hammable((byte)(topPageNum & 0x3C)); //0x3C = 111100... we're only wanting the upper four bits. Then ham it.
 
         //Byte 7 (Top Page Number - Least significant two bits AND Bottom Page Number)
+        this.b7 = getHam.Hammable((byte)(((topPageNum & 0x03) << 2) | (ldlPage & 0x03))); //Get the two least significant bits of topPageNumber, shift by 2, then place LDL page number in the two least significant bits to create the nibble. Then ham it.
 
         //Byte 8
+        //TODO: Is this a part of the OMCW...? Or should it be in a different class?
+        this.b8 = topPageNum & 0xF0; //Top Page Number MSB
 
         //Byte 9
+        //TODO: Is this a part of the OMCW...? Or shold it be in a different class?
+        this.b9 = topPageNum & 0xF; //Low Page Number LSB
 
         //Assign the newly created OMCW bytes to the frame!
         omcwBytes[4] = (byte) this.b4;  // OMCW
