@@ -3,7 +3,6 @@
  */
 public class Address
 {
-   
    private int serviceID;
    private int zone;
    private int county;
