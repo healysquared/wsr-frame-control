@@ -1,6 +1,6 @@
 public class PageHeaderFrame extends ControlFrame {
 
-    public PageHeaderFrame(int pageNumber) {
+    public PageHeaderFrame(int pageNumber, int lineCount) {
 
         /*
         Prior Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf
@@ -20,7 +20,7 @@ public class PageHeaderFrame extends ControlFrame {
         frame[13] = 0; // "
         frame[14] = 0; // "
         frame[15] = 0; // "
-        frame[16] = 0; // Line Count
+        frame[16] = (byte) lineCount; // Line Count
         frame[17] = 0; // Page Attributes
         frame[18] = 0; // "
         frame[19] = 0; // Line 1 Attributes
