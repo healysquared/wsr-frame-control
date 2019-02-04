@@ -12,10 +12,10 @@ public class Address
 
     public Address(int serviceID, int zone, int county, int unit)
     {
-      serviceID = this.serviceID;
-      zone = this.zone;
-      county = this.county;
-      unit = this.unit;
+      this.serviceID = serviceID;
+      this.zone = zone;
+      this.county = county;
+      this.unit = unit;
     }
     public Address()
     {
@@ -25,8 +25,9 @@ public class Address
        county = 0;
        unit = 0;
     }
-    private createAddressArray()
+    private byte[] createAddressArray()
     {
        address = new byte[6];
+       return address;
     }
 }
