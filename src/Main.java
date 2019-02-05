@@ -17,7 +17,9 @@ public class Main {
         Log.info("WeatherSTAR Jr Frame Control Program v" + VERSION +
                 "\n(C) 2019 The WSRProject.\nThis project is in no way associated with IBM, The Weather Channel, or it's subsidiaries.");
 
-        comPort = SerialPort.getCommPort("COM3");
+        String commPort = args[0];
+        Log.info("Using COM Port" + commPort);
+        comPort = SerialPort.getCommPort(commPort);
         comPort.setComPortParameters(115200, 8, 1, 0);
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 0, 0);
         comPort.addDataListener(new SerialPortDataListener() {
