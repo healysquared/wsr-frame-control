@@ -3,7 +3,8 @@
  */
 public class TimeOfDayFrame extends ControlFrame {
 
-    public TimeOfDayFrame(OMCW omcw, int timeZone) {
+    public TimeOfDayFrame(OMCW omcw, int timeZone, int dayOfWeek, int Month,
+            int dayOfMonth, int hours, int minutes, int seconds, boolean PM) {
         this.omcw = omcw;
 
         /*
