@@ -6,4 +6,4 @@ This project is to create a set of tools for generating STAR III / STAR Jr compa
 
 ## Usage
 
-jr-frame-control.jar <COMPORT>
+jr-frame-control.jar COMPORT
