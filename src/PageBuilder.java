@@ -82,7 +82,7 @@ public class PageBuilder {
         DataFrame[] frames = new DataFrame[lineCount + 1];
 
         // Add the header to our output frames
-        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount, address, attributes);
+        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount, omcw, address, attributes);
 
         // Add all of the text lines
         for (TextLineFrame textFrame : textFrames) {

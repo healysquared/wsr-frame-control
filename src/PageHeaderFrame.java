@@ -1,6 +1,7 @@
 public class PageHeaderFrame extends ControlFrame {
 
-    public PageHeaderFrame(int pageNumber, int lineCount, Address address, PageAttributes attributes) {
+    public PageHeaderFrame(int pageNumber, int lineCount, OMCW omcw, Address address, PageAttributes attributes) {
+        this.omcw = omcw;
 
         /*
         Prior Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf

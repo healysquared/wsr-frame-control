@@ -3,8 +3,8 @@
  */
 public class TimeOfDayFrame extends ControlFrame {
 
-    public TimeOfDayFrame(int timeZone) {
-        // TODO: Should parameters be set in the constructor or should we use a builder class here?
+    public TimeOfDayFrame(OMCW omcw, int timeZone) {
+        this.omcw = omcw;
 
         /*
         Prior Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf

@@ -42,7 +42,6 @@ public class OMCW {
         this.auxAudio = ((auxAudio) ? 1 : 0) << 1;
         this.wxWarning = ((wxWarning) ? 1 : 0); //No need to shift as it's already at position 0.
         this.b4 = this.localProgram | this.localPreroll | this.auxAudio | this.wxWarning; //Generate the nibble.
-        this.b4 = (byte) this.b4;
 
         //Byte 5
         this.radar = ((radar) ? 1 : 0) << 3;
@@ -50,7 +49,6 @@ public class OMCW {
         this.topSolid = ((topSolid) ? 1 : 0) << 1;
         this.botSolid = ((botSolid) ? 1 : 0); //No need to shift as it's already at position 0.
         this.b5 = this.radar | this.regionSeparator | this.topSolid | this.botSolid; //Generate the nibble.
-        this.b5 = (byte) this.b4;
 
         //Byte 6 (Top Page Number - Most significant four bits. No need for a topPageNumMSB variable.)
         this.b6 = (byte) (topPageNum & 0x3C); //0x3C = 111100... we're only wanting the upper four bits.
