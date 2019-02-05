@@ -31,7 +31,7 @@ public class TextLineAttributes {
         this.flash = false;
         this.reverse = false;
         this.border = true;
-        this.color = 2;
+        this.color = 5;
     }
 
     /**
@@ -42,5 +42,13 @@ public class TextLineAttributes {
         attributes[0] = (byte) ((separator ? 1 : 0) << 3 | (flash ? 1 : 0) << 2 | (reverse ? 1 : 0) << 1 | (border ? 1 : 0));
         attributes[1] = (byte) color;
         return attributes;
+    }
+
+    public byte getByte1() {
+        return this.buildAttributes()[0];
+    }
+
+    public byte getByte2() {
+        return this.buildAttributes()[1];
     }
 }

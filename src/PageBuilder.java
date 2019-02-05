@@ -58,7 +58,7 @@ public class PageBuilder {
      * @param textSize   Text Size
      */
     public PageBuilder addLine(int lineNumber, String text, byte textSize) {
-        return addLine(lineNumber, text, (byte) 0b0010, new TextLineAttributes());
+        return addLine(lineNumber, text, textSize, new TextLineAttributes());
     }
 
     /**
@@ -68,7 +68,7 @@ public class PageBuilder {
      * @param text       Text
      */
     public PageBuilder addLine(int lineNumber, String text) {
-        return addLine(lineNumber, text, (byte) 0b0010);
+        return addLine(lineNumber, text, (byte) 0b0100);
     }
 
     /**
@@ -81,8 +81,13 @@ public class PageBuilder {
         int frameIndex = 1;
         DataFrame[] frames = new DataFrame[lineCount + 1];
 
+        // TODO: Allow configuring these
+        TextLineAttributes lineAttributes = new TextLineAttributes();
+
         // Add the header to our output frames
-        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount, omcw, address, attributes);
+        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount, omcw, address, attributes, lineAttributes,
+                lineAttributes, lineAttributes, lineAttributes, lineAttributes, lineAttributes, lineAttributes,
+                lineAttributes);
 
         // Add all of the text lines
         for (TextLineFrame textFrame : textFrames) {
