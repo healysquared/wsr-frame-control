@@ -39,6 +39,11 @@ public class TextLineFrame extends DataFrame {
 
     byte calculateOddParity(byte input) {
 
+        // Degrees symbol is mapped to a different location
+        if (input == 0x3F) {
+            input = 0x5C;
+        }
+
         // We need to find the sum of all the 1 bits in this byte
         int count = 0;
         byte shifted = input;
