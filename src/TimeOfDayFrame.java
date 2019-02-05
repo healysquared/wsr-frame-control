@@ -3,10 +3,25 @@
  */
 public class TimeOfDayFrame extends ControlFrame {
 
-    public TimeOfDayFrame(OMCW omcw, int timeZone, int dayOfWeek, int Month,
+    private int timeZone;
+    private int dayOfWeek;
+    private int month;
+    private int dayOfMonth;
+    private int hours;
+    private int minutes;
+    private int seconds;
+    private boolean PM;
+    public TimeOfDayFrame(OMCW omcw, int timeZone, int dayOfWeek, int month,
             int dayOfMonth, int hours, int minutes, int seconds, boolean PM) {
         this.omcw = omcw;
-
+        this.timeZone = timeZone;
+        this.dayOfWeek = dayOfWeek;
+        this.month = month;
+        this.dayOfMonth = dayOfMonth;
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.PM = PM;
         /*
         Prior Reference: https://patentimages.storage.googleapis.com/6d/b2/60/69fee298647dc3/US4725886.pdf
         Reference: https://patentimages.storage.googleapis.com/8d/f3/42/7f8952923cce48/US4916539.pdf
