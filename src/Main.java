@@ -99,6 +99,8 @@ public class Main {
             try {
                 Thread.sleep(80);
             } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e);
             }
         }
     }
