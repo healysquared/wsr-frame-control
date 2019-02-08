@@ -31,7 +31,10 @@ public class Main {
             @Override
             public void serialEvent(SerialPortEvent event) {
                 if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
+                {
+                    Log.error("Serial port failure");
                     return;
+                }
                 byte[] newData = new byte[comPort.bytesAvailable()];
                 int numRead = comPort.readBytes(newData, newData.length);
                 System.out.print(new String(newData, StandardCharsets.US_ASCII));
