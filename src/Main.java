@@ -21,7 +21,7 @@ public class Main {
         Log.info("Using COM Port" + commPort);
         comPort = SerialPort.getCommPort(commPort);
         comPort.setComPortParameters(115200, 8, 1, 0);
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 0, 0);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 1000, 0);
         comPort.addDataListener(new SerialPortDataListener() {
             @Override
             public int getListeningEvents() {
