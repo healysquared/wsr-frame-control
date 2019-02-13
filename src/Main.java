@@ -59,7 +59,8 @@ public class Main {
 
         if (comPort.openPort()) {
             Log.info("Serial port is open");
-        } else {
+        }
+        else {
             Log.error("Serial port failed to open");
             return;
         }
@@ -104,7 +105,7 @@ public class Main {
 //            sendFrames(frames3);
 //
 //        }
-//    }
+    }
 
     static void sendFrames(DataFrame[] frames) {
         for (DataFrame frame : frames) {
