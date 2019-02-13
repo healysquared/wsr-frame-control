@@ -20,7 +20,7 @@ public class Main {
 
         String commPort = args[0];
         int tcpPort = Integer.parseInt(args[1]);
-        Log.info("Using COM Port" + commPort + "& using tcp port" + 
+        Log.info("Using COM Port" + commPort + " & using tcp port" + 
                 Integer.toString(tcpPort));
         
         //Open our TCP socket
