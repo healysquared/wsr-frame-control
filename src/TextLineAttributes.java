@@ -51,4 +51,9 @@ public class TextLineAttributes {
     public byte getByte2() {
         return this.buildAttributes()[1];
     }
+    
+    byte setBit(byte data, int pos, int val)
+    {
+        return (byte) ((val << pos) | data );
+    }
 }
