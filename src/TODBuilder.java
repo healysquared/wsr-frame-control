@@ -8,7 +8,7 @@ public class TODBuilder {
     int hours;
     int minutes;
     int seconds;
-    boolean PM;
+    int PM;
 
     public TODBuilder setOMCW(OMCW omcw) 
     {
@@ -40,12 +40,12 @@ public class TODBuilder {
         this.seconds = seconds;
         return this;
     }
-    public TODBuilder setPM(boolean PM)
+    public TODBuilder setPM(int PM)
     {
         this.PM = PM;
         return this;
     }
-    public TimeOfDayFrame build() 
+    public DataFrame build() 
     {
         return new TimeOfDayFrame(omcw, timeZone, dayOfWeek, month,
             dayOfMonth, hours, minutes, seconds, PM);

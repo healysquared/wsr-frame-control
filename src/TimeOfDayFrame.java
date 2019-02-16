@@ -10,9 +10,9 @@ public class TimeOfDayFrame extends ControlFrame {
     private int hours;
     private int minutes;
     private int seconds;
-    private boolean PM;
+    private int PM;
     public TimeOfDayFrame(OMCW omcw, int timeZone, int dayOfWeek, int month,
-            int dayOfMonth, int hours, int minutes, int seconds, boolean PM) {
+            int dayOfMonth, int hours, int minutes, int seconds, int PM) {
         this.omcw = omcw;
         this.timeZone = timeZone;
         this.dayOfWeek = dayOfWeek;
@@ -36,7 +36,7 @@ public class TimeOfDayFrame extends ControlFrame {
         // 4-7 OMCW
         frame[8] = 0;  // Page Number: 0 for TOD
         frame[9] = 0;  // "
-        frame[10] = 0; // Timezone
+        frame[10] = (byte) timeZone; // Timezone
         frame[11] = 0; // Day of Week
         frame[12] = 0; // Month
         frame[13] = 0; // Day of Month
