@@ -2,6 +2,7 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
+import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
@@ -13,8 +14,10 @@ public class Main
 {
     final static String VERSION = "1.0-DEV";
     static SerialPort comPort;
+    static ServerSocket serverSocket;
+    static Socket socket;
 
-    public static void main(String[] args) 
+    public static void main(String[] args) throws IOException 
     {
         //The line of information that will be displayed when the program initially starts.
         Log.info("WeatherSTAR Jr Frame Control Program v" + VERSION +
@@ -24,11 +27,13 @@ public class Main
         int tcpPort = Integer.parseInt(args[1]);
         Log.info("Using COM Port" + commPort + " & using tcp port" + 
                 Integer.toString(tcpPort));
-        
+               
+        Thread x = new Thread(new TCPDataReceiver(), "poo");
+        x.start();
         //Open our TCP socket
         try
         {
-        ServerSocket serverSocket = new ServerSocket(tcpPort);
+            serverSocket = new ServerSocket(tcpPort);
         }
         catch(Exception e)
         {
@@ -69,6 +74,24 @@ public class Main
             return;
         }
 
+        //Accept connection. This blocks the thread!!
+        try
+        {
+            socket = serverSocket.accept();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        InputStream input = socket.getInputStream();
+        while(true)
+        {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            String line = reader.readLine();
+            if(line != null)
+                Log.info(line);
+        }
 //        while (true) {
 //
 //            OMCW omcw2 = new OMCWBuilder()
