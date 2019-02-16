@@ -14,6 +14,10 @@ public class TODBuilder {
         this.omcw = omcw;
         return this;
     }
+    public TODBuilder setTimeZone(int timeZone) {
+        this.timeZone = timeZone;
+        return this;
+    }
     public TimeOfDayFrame build() {
         return new TimeOfDayFrame(omcw, timeZone, dayOfWeek, month,
             dayOfMonth, hours, minutes, seconds, PM);
