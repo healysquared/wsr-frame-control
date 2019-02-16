@@ -51,7 +51,7 @@ public class OMCW {
         this.b1 = this.radar | this.regionSeparator | this.topSolid | this.botSolid; //Generate the nibble.
 
         //Byte 6
-        this.b2 = (byte) (topPageNum & 0x3C); //0x3C = 111100... we're only wanting the upper four bits of the topPageNum variable.
+        this.b2 = (byte) (topPageNum & 0x3C) >> 2; //0x3C = 111100... we're only wanting the upper four bits of the topPageNum variable.
 
         //Byte 7
         this.b3 = (byte) (((topPageNum & 0x03) << 2) | (ldlPage & 0x03)); //Get the two least significant bits of topPageNumber, shift by 2, then place LDL page number in the two least significant bits to create the nibble.
