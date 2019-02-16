@@ -3,7 +3,6 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.*;
-import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -14,8 +13,6 @@ public class Main
 {
     final static String VERSION = "1.0-DEV";
     static SerialPort comPort;
-    static ServerSocket serverSocket;
-    static Socket socket;
 
     public static void main(String[] args) throws IOException 
     {
@@ -64,16 +61,6 @@ public class Main
             return;
         }
 
-        //Accept connection. This blocks the thread!!
-        try
-        {
-            socket = serverSocket.accept();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        
 
         while (true) {
 
