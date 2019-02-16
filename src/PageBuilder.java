@@ -11,15 +11,40 @@ public class PageBuilder {
         this.pageNumber = pageNumber;
         this.attributes = new PageAttributes();
         this.address = new Address();
+        
+        //Init textlineattributes in case we have null lines ...
+        for(int i = 0; i < 7; i++)
+        {
+            lineAttributes[i] = new TextLineAttributes();
+        }
     }
-
+    
+    public PageBuilder setAttributes(PageAttributes attributes, TextLineAttributes lineAttributes1,
+            TextLineAttributes lineAttributes2, TextLineAttributes lineAttributes3,
+            TextLineAttributes lineAttributes4, TextLineAttributes lineAttributes5,
+            TextLineAttributes lineAttributes6, TextLineAttributes lineAttributes7,
+            TextLineAttributes lineAttributes8)
+    {
+        this.attributes = attributes;
+        this.lineAttributes[0] = lineAttributes1;
+        this.lineAttributes[1] = lineAttributes2;
+        this.lineAttributes[2] = lineAttributes3;
+        this.lineAttributes[3] = lineAttributes4;
+        this.lineAttributes[4] = lineAttributes5;
+        this.lineAttributes[5] = lineAttributes6;
+        this.lineAttributes[6] = lineAttributes7;
+        this.lineAttributes[7] = lineAttributes8;
+        return this;
+    }
     /**
      * Set the attributes for this page
      * TODO: Maybe also put all the attributes here as setters
      */
     public PageBuilder setAttributes(PageAttributes attributes) {
         this.attributes = attributes;
-        return this;
+        return setAttributes(attributes, new TextLineAttributes(), new TextLineAttributes(),
+                new TextLineAttributes(),new TextLineAttributes(),new TextLineAttributes(),
+                new TextLineAttributes(),new TextLineAttributes(),new TextLineAttributes());
     }
 
     /**
@@ -43,15 +68,14 @@ public class PageBuilder {
      * @param lineNumber Line Number
      * @param text       Text
      * @param textSize   Text Size
-     * @param attributes Line Attributes
+     * @param lineAttributes Line Attributes
      * TODO: figure out a cleaner way of adding attributes here, maybe a TextLineBuilder?
      */
-    public PageBuilder addLine(int lineNumber, String text, byte textSize, TextLineAttributes attributes) 
-    {
-        textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
-        lineAttributes[lineNumber - 1] = attributes;
-        return this;
-    }
+//    public PageBuilder addLine(int lineNumber, String text, byte textSize, TextLineAttributes lineAttributes) 
+//    {
+//        textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
+//        return this;
+//    }
 
     /**
      * Add a text line with the default attributes, and color
@@ -61,7 +85,9 @@ public class PageBuilder {
      * @param textSize   Text Size
      */
     public PageBuilder addLine(int lineNumber, String text, byte textSize) {
-        return addLine(lineNumber, text, textSize, new TextLineAttributes());
+//        return addLine(lineNumber, text, textSize, new TextLineAttributes());
+        textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
+        return this;
     }
 
     /**

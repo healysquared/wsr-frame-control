@@ -74,7 +74,16 @@ public class Main
 
             DataFrame[] frames1 = new PageBuilder(1)
                     .setOMCW(omcw2)
-                    .setAttributes(new PageAttributes(false, false, false, false, true, true))
+                    .setAttributes(new PageAttributes(false, false, false, false, true, true),
+                            new TextLineAttributes(false,true,false,true,0),
+                            new TextLineAttributes(false,true,false,true,1),
+                            new TextLineAttributes(false,true,false,true,2),
+                            new TextLineAttributes(false,true,false,true,3),
+                            new TextLineAttributes(false,true,false,true,4),
+                            new TextLineAttributes(false,true,false,true,5),
+                            new TextLineAttributes(false,true,false,true,6),
+                            new TextLineAttributes(false,true,false,true,7)
+                            )
                     .addLine(1, "Conditions at Steamboat Springs")
                     .addLine(2, "Sunny")
                     .addLine(3, "Temp: 199°F")
