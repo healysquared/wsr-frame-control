@@ -49,6 +49,7 @@ public class PageBuilder {
     public PageBuilder addLine(int lineNumber, String text, byte textSize, TextLineAttributes attributes) 
     {
         textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
+        lineAttributes[lineNumber - 1] = attributes;
         return this;
     }
 
