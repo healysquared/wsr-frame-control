@@ -20,6 +20,16 @@ public class TODBuilder {
         this.timeZone = timeZone;
         return this;
     }
+    public TODBuilder setMonth(int month) 
+    {
+        this.month = month;
+        return this;
+    }
+    public TODBuilder setDayOfMonth(int dayOfMonth) 
+    {
+        this.dayOfMonth = dayOfMonth;
+        return this;
+    }
     public TODBuilder setDayOfWeek(int dayOfWeek) 
     {
         this.dayOfWeek = dayOfWeek;
@@ -32,7 +42,7 @@ public class TODBuilder {
     }
     public TODBuilder setMinutes(int minutes)
     {
-        this.timeZone = minutes;
+        this.minutes = minutes;
         return this;
     }
     public TODBuilder setSeconds(int seconds)

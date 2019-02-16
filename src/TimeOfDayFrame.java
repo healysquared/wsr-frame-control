@@ -1,6 +1,7 @@
 /**
  * Packet used to set the clock
  */
+import java.io.*;
 public class TimeOfDayFrame extends ControlFrame {
 
     private int timeZone;
@@ -36,17 +37,17 @@ public class TimeOfDayFrame extends ControlFrame {
         // 4-7 OMCW
         frame[8] = 0;  // Page Number: 0 for TOD
         frame[9] = 0;  // "
-        frame[10] = (byte) timeZone; // Timezone
-        frame[11] = 0; // Day of Week
-        frame[12] = 0; // Month
-        frame[13] = 0; // Day of Month
-        frame[14] = 0; // "
-        frame[15] = 0; // Hours (0-12)
-        frame[16] = 0; // Minutes
-        frame[17] = 0; // "
-        frame[18] = 0; // Seconds
-        frame[19] = 0; // "
-        frame[20] = 0; // AM/PM (0=AM; 1=PM)
+        frame[10] = (byte) (timeZone); // Timezone
+        frame[11] = (byte) (dayOfWeek); // Day of Week
+        frame[12] = (byte) (month); // Month
+        frame[13] = (byte) (dayOfMonth/10); // Day of Month
+        frame[14] = (byte) (dayOfMonth%10); // "
+        frame[15] = (byte) (hours); // Hours (0-12)
+        frame[16] = (byte) (minutes/10); // Minutes
+        frame[17] = (byte) (minutes%10); // "
+        frame[18] = (byte) (seconds/10); // Seconds
+        frame[19] = (byte) (seconds%10); // "
+        frame[20] = (byte) (PM); // AM/PM (0=AM; 1=PM)
         frame[21] = 0; // Alt. Day of Week
         frame[22] = 0; // Alt. Month
         frame[23] = 0; // Alt. Day of Month
@@ -68,14 +69,15 @@ public class TimeOfDayFrame extends ControlFrame {
         setOmcwBytes();
 
         // This packet contains a checksum, which is just indexes 10-30 summed
-        int checksum = 0;
+        byte checksum = 0;
         for (int i = 10; i <= 30; i++) {
             checksum += frame[i];
+            System.out.println(i + ": " + frame[i] + ": "+ checksum);
         }
-
+        System.out.println(checksum);
         // Split the checksum into separate nibbles
-        frame[31] = (byte) ((checksum >> 4) & 0x0F); // High byte
-        frame[32] = (byte) (checksum & 0x0F); // Low byte
+        frame[31] = (byte) (checksum >> 4); // High byte
+        frame[32] = (byte) (checksum); // Low byte
 
         // Convert bytes 3-36 to hamming code
         hamBytes(3, 36);
