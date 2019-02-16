@@ -4,6 +4,7 @@ public class PageBuilder {
     private OMCW omcw;
     private Address address;
     private PageAttributes attributes;
+    private TextLineAttributes[] lineAttributes = new TextLineAttributes[8];
     private TextLineFrame[] textFrames = new TextLineFrame[9]; // Max of 9 lines per page
 
     public PageBuilder(int pageNumber) {
@@ -45,7 +46,8 @@ public class PageBuilder {
      * @param attributes Line Attributes
      * TODO: figure out a cleaner way of adding attributes here, maybe a TextLineBuilder?
      */
-    public PageBuilder addLine(int lineNumber, String text, byte textSize, TextLineAttributes attributes) {
+    public PageBuilder addLine(int lineNumber, String text, byte textSize, TextLineAttributes attributes) 
+    {
         textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
         return this;
     }
@@ -82,12 +84,11 @@ public class PageBuilder {
         DataFrame[] frames = new DataFrame[lineCount + 1];
 
         // TODO: Allow configuring these
-        TextLineAttributes lineAttributes = new TextLineAttributes();
 
         // Add the header to our output frames
-        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount, omcw, address, attributes, lineAttributes,
-                lineAttributes, lineAttributes, lineAttributes, lineAttributes, lineAttributes, lineAttributes,
-                lineAttributes);
+        frames[0] = new PageHeaderFrame(this.pageNumber, lineCount, omcw, address, attributes, lineAttributes[0],
+        lineAttributes[1], lineAttributes[2], lineAttributes[3], lineAttributes[4], lineAttributes[5],
+        lineAttributes[6], lineAttributes[7]);
 
         // Add all of the text lines
         for (TextLineFrame textFrame : textFrames) {
