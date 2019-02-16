@@ -30,16 +30,6 @@ public class Main
                
         Thread x = new Thread(new TCPDataReceiver(), "poo");
         x.start();
-        //Open our TCP socket
-        try
-        {
-            serverSocket = new ServerSocket(tcpPort);
-        }
-        catch(Exception e)
-        {
-            Log.error("Unable to create socket.");
-            e.printStackTrace();
-        }
         
         //Setup serial nonsense
         comPort = SerialPort.getCommPort(commPort);
@@ -84,7 +74,6 @@ public class Main
             e.printStackTrace();
         }
         
-        InputStream input = socket.getInputStream();
 
         while (true) {
 
