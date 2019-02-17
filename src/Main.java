@@ -1,3 +1,4 @@
+
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
@@ -94,7 +95,7 @@ public class Main
                             new TextLineAttributes(false,true,false,true,6),
                             new TextLineAttributes(false,true,false,true,7)
                             )
-                    .addLine(1, "Conditions at Steamboat Springs")
+                    .addLine(1, "Conditions at Chicago/O'Hare")
                     .addLine(2, "Sunny")
                     .addLine(3, "Temp: 199°F")
                     .addLine(4, "Humidity: 100%   Dewpoint: 99°F")
