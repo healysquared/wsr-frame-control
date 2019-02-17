@@ -40,13 +40,13 @@ public class TimeOfDayFrame extends ControlFrame {
         frame[10] = (byte) timeZone; // Timezone
         frame[11] = (byte) dayOfWeek; // Day of Week
         frame[12] = (byte) month; // Month
-        frame[13] = (byte) dayOfMonth ; // Day of Month
-        frame[14] = (byte) dayOfMonth; // "
+        frame[13] = (byte) ((dayOfMonth >> 4) & 0x0F); // Day of Month
+        frame[14] = (byte) (dayOfMonth & 0x0F); // "
         frame[15] = (byte) hours; // Hours (0-12)
-        frame[16] = (byte) minutes; // Minutes
-        frame[17] = (byte) minutes; // "
-        frame[18] = (byte) seconds; // Seconds
-        frame[19] = (byte) seconds; // "
+        frame[16] = (byte) ((minutes >> 4) & 0x0F); // Minutes
+        frame[17] = (byte) (minutes & 0x0F); // "
+        frame[18] = (byte) ((seconds >> 4) & 0x0F); // Seconds
+        frame[19] = (byte) (seconds & 0x0F); // "
         frame[20] = (byte) PM; // AM/PM (0=AM; 1=PM)
         frame[21] = 0; // Alt. Day of Week
         frame[22] = 0; // Alt. Month
