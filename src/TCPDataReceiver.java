@@ -8,18 +8,26 @@ public class TCPDataReceiver implements Runnable {
     @Override
     public void run() {
         String line;
+        ServerSocket serverSocket = null;
         try {
-            System.out.println("Big brother is listening...");
-            ServerSocket serverSocket = new ServerSocket(6868);
-            serverSocket.setSoTimeout(500); //Timeout after 500ms
-            while (true) {
-                Socket socket = serverSocket.accept();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                line = reader.readLine();
-                System.out.println("Received: " + line);
-            }
+
+            serverSocket = new ServerSocket(6868);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Big brother is listening...");
+        while (true) {
+            try {
+                Socket socket = serverSocket.accept();
+                socket.setSoTimeout(1000);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                line = reader.readLine();
+                System.out.println("Received: " + line);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
+
 }
+
