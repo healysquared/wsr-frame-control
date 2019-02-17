@@ -72,19 +72,16 @@ public class Main
         DataFrame tod = new TODBuilder()
                 .setOMCW(omcw2)
                 .setTimeZone(5)
-                .setMonth(2)
+                .setMonth(5)
                 .setDayOfMonth(16)
-                .setDayOfWeek(7)
+                .setDayOfWeek(3)
                 .setHours(5)
                 .setMinutes(20)
                 .setSeconds(00)
                 .setPM(0)
-                .build();
-        
-        while (true) {
-
-            
-sendFrame(tod);
+                .build();  
+        while (true) { 
+            sendFrame(tod);
             DataFrame[] frames1 = new PageBuilder(50)
                     .setOMCW(omcw2)
                     .setAttributes(new PageAttributes(false, false, false, false, false, false),
@@ -136,7 +133,7 @@ sendFrame(tod);
             comPort.readBytes(new byte[1], 1);
             try 
             {
-                Thread.sleep(15);
+                Thread.sleep(80);
             }
             catch (Exception e)
             {
@@ -151,7 +148,7 @@ sendFrame(tod);
         comPort.writeBytes(frameBytes, frameBytes.length, 0);
         comPort.readBytes(new byte[1], 1);
         try {
-            Thread.sleep(15);
+            Thread.sleep(80);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e);
