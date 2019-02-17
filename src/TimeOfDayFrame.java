@@ -72,9 +72,7 @@ public class TimeOfDayFrame extends ControlFrame {
         byte checksum = 0;
         for (int i = 10; i <= 30; i++) {
             checksum += frame[i];
-            System.out.println(i + ": " + frame[i] + ": "+ checksum);
         }
-        System.out.println(checksum);
         // Split the checksum into separate nibbles
         frame[31] = (byte) ((checksum >> 4) & 0x0F); // High byte
         frame[32] = (byte) (checksum & 0x0F); // Low byte
