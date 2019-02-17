@@ -37,17 +37,17 @@ public class TimeOfDayFrame extends ControlFrame {
         // 4-7 OMCW
         frame[8] = 0;  // Page Number: 0 for TOD
         frame[9] = 0;  // "
-        frame[10] = (byte) (timeZone); // Timezone
-        frame[11] = (byte) (dayOfWeek); // Day of Week
-        frame[12] = (byte) (month); // Month
-        frame[13] = (byte) (dayOfMonth/10); // Day of Month
-        frame[14] = (byte) (dayOfMonth%10); // "
-        frame[15] = (byte) (hours); // Hours (0-12)
-        frame[16] = (byte) (minutes/10); // Minutes
-        frame[17] = (byte) (minutes%10); // "
-        frame[18] = (byte) (seconds/10); // Seconds
-        frame[19] = (byte) (seconds%10); // "
-        frame[20] = (byte) (PM); // AM/PM (0=AM; 1=PM)
+        frame[10] = (byte) (5); // Timezone
+        frame[11] = (byte) (7); // Day of Week
+        frame[12] = (byte) (2); // Month
+        frame[13] = (byte) (0) ; // Day of Month
+        frame[14] = (byte) (2); // "
+        frame[15] = (byte) (3); // Hours (0-12)
+        frame[16] = (byte) (1); // Minutes
+        frame[17] = (byte) (9); // "
+        frame[18] = (byte) (0); // Seconds
+        frame[19] = (byte) (0); // "
+        frame[20] = (byte) (1); // AM/PM (0=AM; 1=PM)
         frame[21] = 0; // Alt. Day of Week
         frame[22] = 0; // Alt. Month
         frame[23] = 0; // Alt. Day of Month
@@ -76,8 +76,8 @@ public class TimeOfDayFrame extends ControlFrame {
         }
         System.out.println(checksum);
         // Split the checksum into separate nibbles
-        frame[31] = (byte) (checksum >> 4); // High byte
-        frame[32] = (byte) (checksum); // Low byte
+        frame[31] = (byte) ((checksum >> 4) & 0x0F); // High byte
+        frame[32] = (byte) (checksum & 0x0F); // Low byte
 
         // Convert bytes 3-36 to hamming code
         hamBytes(3, 36);
