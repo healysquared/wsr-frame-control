@@ -1,0 +1,22 @@
+{
+  "OMCW": {
+    "regionSeparator": true,
+    "topSolid": true,
+    "bottomSolid": true,
+    "topPage": 50,
+    "ldlPage": 1
+  },
+  "OMCWExtension": {},
+  "Address": {},
+  "frameType": "tod",
+  "todData": {
+    "timezone": 5,
+    "month": 3,
+    "dayOfMonth": 3,
+    "dayOfWeek": 3,
+    "hours": 3,
+    "minutes": 3,
+    "seconds": 3,
+    "PM": 3
+    }
+}

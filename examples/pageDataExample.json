@@ -1,0 +1,116 @@
+{
+  "OMCW": {
+    "regionSeparator": true,
+    "topSolid": true,
+    "bottomSolid": true,
+    "topPage": 1,
+    "ldlPage": 1
+  },
+  "OMCWExtension": {},
+  "Address": {},
+  "frameType": "Page",
+  "pageData": {
+    "pageNumber": 1,
+    "lineCount": 3,
+    "pageAttributes": {
+      "freeze": false,
+      "advisory": false,
+      "warning": false,
+      "flip": false,
+      "roll": false,
+      "chain": true
+    },
+    "lineAttributes": [
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+        "color": 0
+      },
+      {
+        "seperator": false,
+        "flash": false,
+        "reverse": false,
+        "border": false,
+
+        "color": 0
+      }
+    ],
+    "lines": [
+      {
+        "rowNumber": 1,
+        "heightWidth": {
+          "height": 1,
+          "width": 1
+        },
+        "textData": "Conditions at Steamboat Springs"
+      },
+      {
+        "rowNumber": 2,
+        "heightWidth": {
+          "height": 1,
+          "width": 1
+        },
+        "textData": "Sunny"
+      },
+      {
+        "rowNumber": 3,
+        "heightWidth": {
+          "height": 1,
+          "width": 1
+        },
+        "textData": "Temp: 199°F"
+      }
+    ]
+  }
+}
