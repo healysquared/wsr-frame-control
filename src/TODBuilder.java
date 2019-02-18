@@ -55,10 +55,12 @@ public class TODBuilder {
         this.PM = PM;
         return this;
     }
-    public DataFrame build() 
+    public DataFrame[] build() 
     {
-        return new TimeOfDayFrame(omcw, timeZone, dayOfWeek, month,
+        DataFrame[] todframes = new DataFrame[1];
+        todframes[0] = new TimeOfDayFrame(omcw, timeZone, dayOfWeek, month,
             dayOfMonth, hours, minutes, seconds, PM);
+        return todframes;
     }
 
 }

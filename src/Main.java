@@ -4,7 +4,9 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.*;
+import java.util.*;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * This class controls the entire program. Can't do much without it. :~)
@@ -14,7 +16,8 @@ public class Main
 {
     final static String VERSION = "1.0-DEV";
     static SerialPort comPort;
-
+    
+    
     public static void main(String[] args) throws IOException 
     {
         //The line of information that will be displayed when the program initially starts.
@@ -25,9 +28,11 @@ public class Main
         int tcpPort = Integer.parseInt(args[1]);
         Log.info("Using COM Port" + commPort + " & using tcp port" + 
                 Integer.toString(tcpPort));
-               
-        Thread x = new Thread(new TCPDataReceiver(), "poo");
+              
+        Queue<DataFrame> queue = new ConcurrentLinkedQueue<>();
+        Thread x = new Thread(new TCPDataReceiver(queue), "poo");
         x.start();
+        
         
         //Setup serial nonsense
         comPort = SerialPort.getCommPort(commPort);
@@ -70,7 +75,7 @@ public class Main
                     .setLdlPage(1)
                     .build();
         
-        DataFrame tod = new TODBuilder()
+        DataFrame[] tod = new TODBuilder()
                 .setOMCW(omcw2)
                 .setTimeZone(5)
                 .setMonth(5)
@@ -82,7 +87,7 @@ public class Main
                 .setPM(0)
                 .build();  
         while (true) { 
-            sendFrame(tod);
+            sendFrames(tod);
             DataFrame[] frames1 = new PageBuilder(50)
                     .setOMCW(omcw2)
                     .setAttributes(new PageAttributes(false, false, false, false, false, false),
@@ -95,7 +100,7 @@ public class Main
                             new TextLineAttributes(false,true,false,true,6),
                             new TextLineAttributes(false,true,false,true,7)
                             )
-                    .addLine(1, "Conditions at Chicago/O'Hare")
+                    .addLine(1, "Conditions at Steamboat Springs")
                     .addLine(2, "Sunny")
                     .addLine(3, "Temp: 199°F")
                     .addLine(4, "Humidity: 100%   Dewpoint: 99°F")
