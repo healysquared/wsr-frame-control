@@ -92,6 +92,7 @@ public class Main
         while (true) { 
            if(queue.isEmpty() && omcw != null)
            {
+               //Idle. Queue is empty.
            DataFrame[] idleframe = new PageBuilder(129)
                     .setOMCW(omcw)
                     .setAttributes(new PageAttributes(false, false, false, false, false, false),
@@ -104,6 +105,7 @@ public class Main
                             new TextLineAttributes(false,true,false,true,6),
                             new TextLineAttributes(false,true,false,true,7)
                             )
+                            .addLine(1, "", 1, 0)
                     .build(); 
                     sendFrames(idleframe);
            }

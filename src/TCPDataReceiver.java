@@ -41,7 +41,7 @@ public class TCPDataReceiver implements Runnable
                 //Especially for read timeouts, in case comm failure.
                 socket.setSoTimeout(1000);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                data = reader.readLine();
+                data =  reader.lines().collect(Collectors.joining());
                 System.out.println("Received: " + data);
                 JsonParser parser = new JsonParser();
                 JsonObject rootObj = parser.parse(data).getAsJsonObject();
@@ -59,7 +59,7 @@ public class TCPDataReceiver implements Runnable
                             .setTopPage(jomcw.getAsJsonPrimitive("topPage").getAsInt())
                             .setLdlPage(jomcw.getAsJsonPrimitive("ldlPage").getAsInt())
                             .build();
-                    this.omcw = locomcw;
+                    omcw = locomcw;
                 }
                 else
                 {
@@ -67,23 +67,63 @@ public class TCPDataReceiver implements Runnable
                 }
                 
                 //Process page json
-                if( frameType.equals("Page"))
+                if(frameType.equals("Page"))
                 {
+                    JsonObject pageData = rootObj.getAsJsonObject("pageData");
+                    JsonObject pageAttr = pageData.getAsJsonObject("pageAttributes");
+                    JsonArray lineAttr = pageData.getAsJsonArray("lineAttributes");
+                    
                     PageBuilder page = new PageBuilder(50);
                     page.setOMCW(locomcw);
                     page.setAttributes(
-                            new PageAttributes(false, false, false, false, false, false),
-                            new TextLineAttributes(false,true,false,true,0),
-                            new TextLineAttributes(false,true,false,false,1),
-                            new TextLineAttributes(false,true,false,true,2),
-                            new TextLineAttributes(false,true,false,true,3),
-                            new TextLineAttributes(false,true,false,true,4),
-                            new TextLineAttributes(false,true,false,true,5),
-                            new TextLineAttributes(false,true,false,true,6),
-                            new TextLineAttributes(false,true,false,true,7)
+                            new PageAttributes(pageAttr.getAsJsonPrimitive("freeze").getAsBoolean(), 
+                                    pageAttr.getAsJsonPrimitive("advisory").getAsBoolean(),
+                                    pageAttr.getAsJsonPrimitive("warning").getAsBoolean(),
+                                    pageAttr.getAsJsonPrimitive("flip").getAsBoolean(),
+                                    pageAttr.getAsJsonPrimitive("roll").getAsBoolean(), 
+                                    pageAttr.getAsJsonPrimitive("chain").getAsBoolean()),
+                            new TextLineAttributes(lineAttr.get(0).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(0).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(0).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(0).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(0).getAsJsonObject().getAsJsonPrimitive("color").getAsInt()),
+                            new TextLineAttributes(lineAttr.get(1).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(1).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(1).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(1).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(1).getAsJsonObject().getAsJsonPrimitive("color").getAsInt()),
+                            new TextLineAttributes(lineAttr.get(2).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(2).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(2).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(2).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(2).getAsJsonObject().getAsJsonPrimitive("color").getAsInt()),
+                            new TextLineAttributes(lineAttr.get(3).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(3).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(3).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(3).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(3).getAsJsonObject().getAsJsonPrimitive("color").getAsInt()),
+                            new TextLineAttributes(lineAttr.get(4).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(4).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(4).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(4).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(4).getAsJsonObject().getAsJsonPrimitive("color").getAsInt()),
+                            new TextLineAttributes(lineAttr.get(5).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(5).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(5).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(5).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(5).getAsJsonObject().getAsJsonPrimitive("color").getAsInt()),
+                            new TextLineAttributes(lineAttr.get(6).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(6).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(6).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(6).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(6).getAsJsonObject().getAsJsonPrimitive("color").getAsInt()),
+                            new TextLineAttributes(lineAttr.get(7).getAsJsonObject().getAsJsonPrimitive("seperator").getAsBoolean(),
+                                    lineAttr.get(7).getAsJsonObject().getAsJsonPrimitive("flash").getAsBoolean(),
+                                    lineAttr.get(7).getAsJsonObject().getAsJsonPrimitive("reverse").getAsBoolean(),
+                                    lineAttr.get(7).getAsJsonObject().getAsJsonPrimitive("border").getAsBoolean(),
+                                    lineAttr.get(7).getAsJsonObject().getAsJsonPrimitive("color").getAsInt())
                             );
                     
-                    JsonObject pageData = rootObj.getAsJsonObject("pageData");
                     int lineCount = pageData.getAsJsonPrimitive("lineCount").getAsInt();
 
                     System.out.println("frameType:" + frameType + " lineCount:" + lineCount);
@@ -100,11 +140,31 @@ public class TCPDataReceiver implements Runnable
                         page.addLine(rowNumber, textData, height, width);
                         System.out.println("Row:" + rowNumber);
                     }
-                    queue.offer(page.build());
+                    queue.add(page.build());
                 }
                 else if(frameType.equals("tod"))
                 {
-                    ;
+                    JsonObject todData = rootObj.getAsJsonObject("todData");
+                    int timezone = todData.getAsJsonPrimitive("timezone").getAsInt();
+                    int month = todData.getAsJsonPrimitive("month").getAsInt();
+                    int dayOfMonth = todData.getAsJsonPrimitive("dayOfMonth").getAsInt();
+                    int dayOfWeek = todData.getAsJsonPrimitive("dayOfWeek").getAsInt();
+                    int hours = todData.getAsJsonPrimitive("hours").getAsInt();
+                    int minutes = todData.getAsJsonPrimitive("minutes").getAsInt();
+                    int seconds = todData.getAsJsonPrimitive("seconds").getAsInt();
+                    int PM = todData.getAsJsonPrimitive("PM").getAsInt();
+                    
+                    TODBuilder todbuild = new TODBuilder();
+                    todbuild.setOMCW(locomcw)
+                            .setTimeZone(timezone)
+                            .setMonth(month)
+                            .setDayOfMonth(dayOfMonth)
+                            .setDayOfWeek(dayOfWeek)
+                            .setHours(hours)
+                            .setMinutes(minutes)
+                            .setSeconds(seconds)
+                            .setPM(PM);
+                    queue.add(todbuild.build());
                 }
             } 
             catch (Exception e)
