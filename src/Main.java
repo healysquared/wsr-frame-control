@@ -32,13 +32,7 @@ public class Main
         Queue<DataFrame[]> queue = new ConcurrentLinkedQueue<>();
         
         //TODO: Make this threadsafe.
-        OMCW omcw = new OMCWBuilder()
-                    .setRegionSeparatorEnabled(true)
-                    .setTopSolid(true)
-                    .setBottomSolid(true)
-                    .setTopPage(50)
-                    .setLdlPage(1)
-                    .build();
+        OMCW omcw = null;
         Thread x = new Thread(new TCPDataReceiver(queue, omcw), "TCPReceiver");
         x.start();
         
@@ -76,7 +70,7 @@ public class Main
             return;
         }
 
-        OMCW omcw2 = new OMCWBuilder()
+        omcw = new OMCWBuilder()
                     .setRegionSeparatorEnabled(true)
                     .setTopSolid(true)
                     .setBottomSolid(true)
@@ -84,22 +78,36 @@ public class Main
                     .setLdlPage(1)
                     .build();
         
-        DataFrame[] tod = new TODBuilder()
-                .setOMCW(omcw2)
-                .setTimeZone(5)
-                .setMonth(5)
-                .setDayOfMonth(16)
-                .setDayOfWeek(3)
-                .setHours(5)
-                .setMinutes(20)
-                .setSeconds(00)
-                .setPM(0)
-                .build();  
+//        DataFrame[] tod = new TODBuilder()
+//                .setOMCW(omcw2)
+//                .setTimeZone(5)
+//                .setMonth(5)
+//                .setDayOfMonth(16)
+//                .setDayOfWeek(3)
+//                .setHours(5)
+//                .setMinutes(20)
+//                .setSeconds(00)
+//                .setPM(0)
+//                .build();  
         while (true) { 
-           if(queue.isEmpty())
+           if(queue.isEmpty() && omcw != null)
            {
+           DataFrame[] idleframe = new PageBuilder(129)
+                    .setOMCW(omcw)
+                    .setAttributes(new PageAttributes(false, false, false, false, false, false),
+                            new TextLineAttributes(false,true,false,true,0),
+                            new TextLineAttributes(false,true,false,false,1),
+                            new TextLineAttributes(false,true,false,true,2),
+                            new TextLineAttributes(false,true,false,true,3),
+                            new TextLineAttributes(false,true,false,true,4),
+                            new TextLineAttributes(false,true,false,true,5),
+                            new TextLineAttributes(false,true,false,true,6),
+                            new TextLineAttributes(false,true,false,true,7)
+                            )
+                    .build(); 
+                    sendFrames(idleframe);
            }
-           else
+           else if(!queue.isEmpty())
            {
             sendFrames(queue.poll());
            }

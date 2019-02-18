@@ -59,6 +59,7 @@ public class TCPDataReceiver implements Runnable
                             .setTopPage(jomcw.getAsJsonPrimitive("topPage").getAsInt())
                             .setLdlPage(jomcw.getAsJsonPrimitive("ldlPage").getAsInt())
                             .build();
+                    this.omcw = locomcw;
                 }
                 else
                 {
