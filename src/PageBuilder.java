@@ -92,6 +92,7 @@ public class PageBuilder
      * @param text Text
      * @param height Line text height
      * @param width Line text width
+     * @return this
      */
     public PageBuilder addLine(int lineNumber, String text, int height, int width)
     {
@@ -107,6 +108,7 @@ public class PageBuilder
      *
      * @param lineNumber Line Number
      * @param text Text
+     * @return addLine(lineNumber, text, 1, 1);
      */
     public PageBuilder addLine(int lineNumber, String text)
     {

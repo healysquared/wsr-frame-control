@@ -96,44 +96,13 @@ public class Main
                 .setPM(0)
                 .build();  
         while (true) { 
-            sendFrames(tod);
-            DataFrame[] frames1 = new PageBuilder(50)
-                    .setOMCW(omcw2)
-                    .setAttributes(new PageAttributes(false, false, false, false, false, false),
-                            new TextLineAttributes(false,true,false,true,0),
-                            new TextLineAttributes(false,true,false,false,1),
-                            new TextLineAttributes(false,true,false,true,2),
-                            new TextLineAttributes(false,true,false,true,3),
-                            new TextLineAttributes(false,true,false,true,4),
-                            new TextLineAttributes(false,true,false,true,5),
-                            new TextLineAttributes(false,true,false,true,6),
-                            new TextLineAttributes(false,true,false,true,7)
-                            )
-                    .addLine(1, "Conditions at Steamboat Springs", 1, 2)
-                    .addLine(2, "Sunny")
-                    .addLine(3, "Temp: 199°F")
-                    .addLine(4, "Humidity: 100%   Dewpoint: 99°F")
-                    .addLine(5, "Barometric Pressure: 99.99 in.")
-                    .addLine(6, "Wind: SSW 199 MPH")
-                    .addLine(7, "Visib: 100 mi. Ceiling: 10000 ft")
-                    .addLine(8, "February Precipitation: 0.00 in")
-                    .build();
-
-            DataFrame[] frames2 = new PageBuilder(2)
-                    .setOMCW(omcw2)
-                    .setAttributes(new PageAttributes(false, false, false, false, false, false))
-                    .addLine(1, "This is page 2", 2, 2)
-                    .build();
-
-            DataFrame[] frames3 = new PageBuilder(3)
-                    .setOMCW(omcw2)
-                    .setAttributes(new PageAttributes(false, false, false, false, false, false))
-                    .addLine(1, "This is page 3", 2, 2)
-                    .build();
-
-            sendFrames(frames1);
-            sendFrames(frames2);
-            sendFrames(frames3);
+           if(queue.isEmpty())
+           {
+           }
+           else
+           {
+            sendFrames(queue.poll());
+           }
 
         }
     }
