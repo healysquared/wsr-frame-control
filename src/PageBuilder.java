@@ -90,12 +90,11 @@ public class PageBuilder
      *
      * @param lineNumber Line Number
      * @param text Text
-     * @param textSize Text Size
+     * @param height Line text height
+     * @param width Line text width
      */
     public PageBuilder addLine(int lineNumber, String text, int height, int width)
     {
-//        return addLine(lineNumber, text, textSize, new TextLineAttributes());
-        
         byte textSize = (byte) width;
         byte heightBits = (byte) ((height << 2) & 0x0F);
         textSize = (byte) ((textSize | heightBits ) & 0x0F);
@@ -111,7 +110,7 @@ public class PageBuilder
      */
     public PageBuilder addLine(int lineNumber, String text)
     {
-        return addLine(lineNumber, text, 1, 0);
+        return addLine(lineNumber, text, 1, 1);
     }
 
     /**
