@@ -29,8 +29,17 @@ public class Main
         Log.info("Using COM Port" + commPort + " & using tcp port" + 
                 Integer.toString(tcpPort));
               
-        Queue<DataFrame> queue = new ConcurrentLinkedQueue<>();
-        Thread x = new Thread(new TCPDataReceiver(queue), "poo");
+        Queue<DataFrame[]> queue = new ConcurrentLinkedQueue<>();
+        
+        //TODO: Make this threadsafe.
+        OMCW omcw = new OMCWBuilder()
+                    .setRegionSeparatorEnabled(true)
+                    .setTopSolid(true)
+                    .setBottomSolid(true)
+                    .setTopPage(50)
+                    .setLdlPage(1)
+                    .build();
+        Thread x = new Thread(new TCPDataReceiver(queue, omcw), "TCPReceiver");
         x.start();
         
         
@@ -100,7 +109,7 @@ public class Main
                             new TextLineAttributes(false,true,false,true,6),
                             new TextLineAttributes(false,true,false,true,7)
                             )
-                    .addLine(1, "Conditions at Steamboat Springs")
+                    .addLine(1, "Conditions at Steamboat Springs", 1, 2)
                     .addLine(2, "Sunny")
                     .addLine(3, "Temp: 199°F")
                     .addLine(4, "Humidity: 100%   Dewpoint: 99°F")
@@ -113,13 +122,13 @@ public class Main
             DataFrame[] frames2 = new PageBuilder(2)
                     .setOMCW(omcw2)
                     .setAttributes(new PageAttributes(false, false, false, false, false, false))
-                    .addLine(1, "This is page 2", (byte) 0b1111)
+                    .addLine(1, "This is page 2", 2, 2)
                     .build();
 
             DataFrame[] frames3 = new PageBuilder(3)
                     .setOMCW(omcw2)
                     .setAttributes(new PageAttributes(false, false, false, false, false, false))
-                    .addLine(1, "This is page 3", (byte) 0b1111)
+                    .addLine(1, "This is page 3", 2, 2)
                     .build();
 
             sendFrames(frames1);
