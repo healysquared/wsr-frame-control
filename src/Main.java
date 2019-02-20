@@ -32,7 +32,13 @@ public class Main
         Queue<DataFrame[]> queue = new ConcurrentLinkedQueue<>();
         
         //TODO: Make this threadsafe.
-        OMCW omcw = null;
+        OMCWBuilder omcw = new OMCWBuilder()
+                    .setRegionSeparatorEnabled(true)
+                    .setTopSolid(true)
+                    .setBottomSolid(true)
+                    .setTopPage(50)
+                    .setLdlPage(1);
+        
         Thread x = new Thread(new TCPDataReceiver(queue, omcw), "TCPReceiver");
         x.start();
         
@@ -69,32 +75,13 @@ public class Main
             Log.error("Serial port failed to open");
             return;
         }
-
-        omcw = new OMCWBuilder()
-                    .setRegionSeparatorEnabled(true)
-                    .setTopSolid(true)
-                    .setBottomSolid(true)
-                    .setTopPage(50)
-                    .setLdlPage(1)
-                    .build();
         
-//        DataFrame[] tod = new TODBuilder()
-//                .setOMCW(omcw2)
-//                .setTimeZone(5)
-//                .setMonth(5)
-//                .setDayOfMonth(16)
-//                .setDayOfWeek(3)
-//                .setHours(5)
-//                .setMinutes(20)
-//                .setSeconds(00)
-//                .setPM(0)
-//                .build();  
         while (true) { 
-           if(queue.isEmpty() && omcw != null)
+           if(queue.isEmpty())
            {
                //Idle. Queue is empty.
-           DataFrame[] idleframe = new PageBuilder(129)
-                    .setOMCW(omcw)
+           DataFrame[] idleframe = new PageBuilder(63)
+                    .setOMCW(omcw.build())
                     .setPageAttributes(new PageAttributes(false, false, false, false, false, false))
                     .setLineAttributes(
                             new TextLineAttributes(false,true,false,true,0),
@@ -107,6 +94,7 @@ public class Main
                             new TextLineAttributes(false,true,false,true,7)
                             )
                             .addLine(1, "", 1, 0)
+                            .setAddress(new Address(1,2,3,4))
                     .build(); 
                     sendFrames(idleframe);
            }

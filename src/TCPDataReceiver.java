@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 
 public class TCPDataReceiver implements Runnable {
 
-    private Queue<DataFrame[]> queue;
-    private OMCW omcw;
+    private final Queue<DataFrame[]> queue;
+    private final OMCWBuilder omcw;
 
-    public TCPDataReceiver(Queue<DataFrame[]> queue, OMCW omcw) {
+    public TCPDataReceiver(Queue<DataFrame[]> queue, OMCWBuilder omcw) {
         this.queue = queue;
         this.omcw = omcw;
     }
@@ -64,7 +64,11 @@ public class TCPDataReceiver implements Runnable {
                     .setTopPage(jomcw.getAsJsonPrimitive("topPage").getAsInt())
                     .setLdlPage(jomcw.getAsJsonPrimitive("ldlPage").getAsInt())
                     .build();
-            omcw = locomcw;
+            omcw.setRegionSeparatorEnabled(jomcw.getAsJsonPrimitive("regionSeparator").getAsBoolean())
+                    .setTopSolid(jomcw.getAsJsonPrimitive("topSolid").getAsBoolean())
+                    .setBottomSolid(jomcw.getAsJsonPrimitive("bottomSolid").getAsBoolean())
+                    .setTopPage(jomcw.getAsJsonPrimitive("topPage").getAsInt())
+                    .setLdlPage(jomcw.getAsJsonPrimitive("ldlPage").getAsInt());
         } else {
             throw new NullPointerException("No OMCW in JSON!");
         }
