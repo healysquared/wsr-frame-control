@@ -1,6 +1,5 @@
 
-public class PageBuilder
-{
+public class PageBuilder {
 
     private int pageNumber;
     private OMCW omcw;
@@ -9,26 +8,21 @@ public class PageBuilder
     private TextLineAttributes[] lineAttributes = new TextLineAttributes[8];
     private TextLineFrame[] textFrames = new TextLineFrame[9]; // Max of 9 lines per page
 
-    public PageBuilder(int pageNumber)
-    {
+    public PageBuilder(int pageNumber) {
         this.pageNumber = pageNumber;
         this.attributes = new PageAttributes();
         this.address = new Address();
 
         //Init textlineattributes in case we have null lines ...
-        for (int i = 0; i < 7; i++)
-        {
+        for (int i = 0; i < 7; i++) {
             lineAttributes[i] = new TextLineAttributes();
         }
     }
 
-    public PageBuilder setAttributes(PageAttributes attributes, TextLineAttributes lineAttributes1,
-            TextLineAttributes lineAttributes2, TextLineAttributes lineAttributes3,
-            TextLineAttributes lineAttributes4, TextLineAttributes lineAttributes5,
-            TextLineAttributes lineAttributes6, TextLineAttributes lineAttributes7,
-            TextLineAttributes lineAttributes8)
-    {
-        this.attributes = attributes;
+    public PageBuilder setLineAttributes(TextLineAttributes lineAttributes1, TextLineAttributes lineAttributes2,
+                                         TextLineAttributes lineAttributes3, TextLineAttributes lineAttributes4,
+                                         TextLineAttributes lineAttributes5, TextLineAttributes lineAttributes6,
+                                         TextLineAttributes lineAttributes7, TextLineAttributes lineAttributes8) {
         this.lineAttributes[0] = lineAttributes1;
         this.lineAttributes[1] = lineAttributes2;
         this.lineAttributes[2] = lineAttributes3;
@@ -40,23 +34,15 @@ public class PageBuilder
         return this;
     }
 
-    /**
-     * Set the attributes for this page TODO: Maybe also put all the attributes
-     * here as setters
-     */
-    public PageBuilder setAttributes(PageAttributes attributes)
-    {
+    public PageBuilder setPageAttributes(PageAttributes attributes) {
         this.attributes = attributes;
-        return setAttributes(attributes, new TextLineAttributes(), new TextLineAttributes(),
-                new TextLineAttributes(), new TextLineAttributes(), new TextLineAttributes(),
-                new TextLineAttributes(), new TextLineAttributes(), new TextLineAttributes());
+        return this;
     }
 
     /**
      * Set the OMCW for this page
      */
-    public PageBuilder setOMCW(OMCW omcw)
-    {
+    public PageBuilder setOMCW(OMCW omcw) {
         this.omcw = omcw;
         return this;
     }
@@ -64,8 +50,7 @@ public class PageBuilder
     /**
      * Set the unit address for this page
      */
-    public PageBuilder setAddress(Address address)
-    {
+    public PageBuilder setAddress(Address address) {
         this.address = address;
         return this;
     }
@@ -85,20 +70,20 @@ public class PageBuilder
 //        textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
 //        return this;
 //    }
+
     /**
      * Add a text line with the default attributes, and color
      *
      * @param lineNumber Line Number
-     * @param text Text
-     * @param height Line text height
-     * @param width Line text width
+     * @param text       Text
+     * @param height     Line text height
+     * @param width      Line text width
      * @return this
      */
-    public PageBuilder addLine(int lineNumber, String text, int height, int width)
-    {
+    public PageBuilder addLine(int lineNumber, String text, int height, int width) {
         byte textSize = (byte) width;
         byte heightBits = (byte) ((height << 2) & 0x0F);
-        textSize = (byte) ((textSize | heightBits ) & 0x0F);
+        textSize = (byte) ((textSize | heightBits) & 0x0F);
         textFrames[lineNumber - 1] = new TextLineFrame(lineNumber, textSize, text);
         return this;
     }
@@ -107,11 +92,10 @@ public class PageBuilder
      * Add a text line with the default size, attributes, and color
      *
      * @param lineNumber Line Number
-     * @param text Text
+     * @param text       Text
      * @return addLine(lineNumber, text, 1, 1);
      */
-    public PageBuilder addLine(int lineNumber, String text)
-    {
+    public PageBuilder addLine(int lineNumber, String text) {
         return addLine(lineNumber, text, 1, 1);
     }
 
@@ -120,8 +104,7 @@ public class PageBuilder
      *
      * @return Array of frames to send to the STAR
      */
-    public DataFrame[] build()
-    {
+    public DataFrame[] build() {
         int lineCount = getLineCount();
         int frameIndex = 1;
         DataFrame[] frames = new DataFrame[lineCount + 1];
@@ -133,10 +116,8 @@ public class PageBuilder
                 lineAttributes[6], lineAttributes[7]);
 
         // Add all of the text lines
-        for (TextLineFrame textFrame : textFrames)
-        {
-            if (textFrame == null)
-            {
+        for (TextLineFrame textFrame : textFrames) {
+            if (textFrame == null) {
                 continue;
             }
             frames[frameIndex] = textFrame;
@@ -149,13 +130,10 @@ public class PageBuilder
     /**
      * @return The number of text line frames that are not null
      */
-    private int getLineCount()
-    {
+    private int getLineCount() {
         int count = 0;
-        for (TextLineFrame textFrame : textFrames)
-        {
-            if (textFrame != null)
-            {
+        for (TextLineFrame textFrame : textFrames) {
+            if (textFrame != null) {
                 count++;
             }
         }

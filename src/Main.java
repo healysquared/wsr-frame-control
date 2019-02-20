@@ -95,7 +95,8 @@ public class Main
                //Idle. Queue is empty.
            DataFrame[] idleframe = new PageBuilder(129)
                     .setOMCW(omcw)
-                    .setAttributes(new PageAttributes(false, false, false, false, false, false),
+                    .setPageAttributes(new PageAttributes(false, false, false, false, false, false))
+                    .setLineAttributes(
                             new TextLineAttributes(false,true,false,true,0),
                             new TextLineAttributes(false,true,false,false,1),
                             new TextLineAttributes(false,true,false,true,2),
