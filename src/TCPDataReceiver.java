@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class TCPDataReceiver implements Runnable {
 
@@ -39,13 +40,8 @@ public class TCPDataReceiver implements Runnable {
                 socket = serverSocket.accept();
                 socket.setSoTimeout(1000);
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println("Line: " + line);
-                    processJSON(line);
-                }
-
+                String data = reader.lines().collect(Collectors.joining());
+                processJSON(data);
             } catch (IOException | NullPointerException exception) {
                 exception.printStackTrace();
             }
