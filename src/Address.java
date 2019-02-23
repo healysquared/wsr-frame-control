@@ -26,6 +26,7 @@ public class Address {
     private byte[] createAddressArray() {
         /*
         "Service" (3 bits), "Zone' (10 bits), "County' (5 bits), and "Unit" (6 bits)
+        TODO: Implement
         */
         address = new byte[6];
         return address;
