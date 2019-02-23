@@ -42,8 +42,8 @@ public class TCPDataReceiver implements Runnable {
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String data = reader.lines().collect(Collectors.joining());
                 processJSON(data);
-            } catch (IOException | NullPointerException exception) {
-                exception.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
