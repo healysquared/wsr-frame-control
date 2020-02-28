@@ -17,7 +17,7 @@ public class TextLineFrame extends DataFrame {
 
         // fill the array with spaces
         for (int i = 5; i < frame.length; i++) {
-            frame[i] = 0x7F;
+            frame[i] = 0x20;
         }
 
         // Convert the string to odd-parity ASCII and append it to the frame

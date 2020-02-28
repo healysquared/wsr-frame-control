@@ -46,7 +46,7 @@ public class Main
         //Setup serial nonsense
         comPort = SerialPort.getCommPort(commPort);
         comPort.setComPortParameters(115200, 8, 1, 0);
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 200, 0);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 1000, 0);
         comPort.addDataListener(new SerialPortDataListener() {
             @Override
             public int getListeningEvents() {
@@ -80,6 +80,7 @@ public class Main
            if(queue.isEmpty())
            {
                //Idle. Queue is empty.
+               /*
            DataFrame[] idleframe = new PageBuilder(63)
                     .setOMCW(omcw.build())
                     .setPageAttributes(new PageAttributes(false, false, false, false, false, false))
@@ -93,9 +94,21 @@ public class Main
                             new TextLineAttributes(false,true,false,true,6),
                             new TextLineAttributes(false,true,false,true,7)
                             )
-                            .addLine(1, "", 1, 0)
+                            .addLine(1, " ", 1, 0)
                             .setAddress(new Address(1,2,3,4))
                     .build(); 
+                */
+               DataFrame[] idleframe = new TODBuilder()
+                .setOMCW(omcw.build())
+                    .setTimeZone(2)
+                    .setMonth(1)
+                    .setDayOfMonth(1)
+                    .setDayOfWeek(1)
+                    .setHours(1)
+                    .setMinutes(1)
+                    .setSeconds(1)
+                    .setPM(1)
+                       .build();
                     sendFrames(idleframe);
            }
            else if(!queue.isEmpty())
@@ -116,7 +129,7 @@ public class Main
             comPort.readBytes(new byte[1], 1);
             try 
             {
-                Thread.sleep(80);
+                Thread.sleep(20);
             }
             catch (Exception e)
             {
@@ -131,7 +144,7 @@ public class Main
         comPort.writeBytes(frameBytes, frameBytes.length, 0);
         comPort.readBytes(new byte[1], 1);
         try {
-            Thread.sleep(80);
+            Thread.sleep(20);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e);

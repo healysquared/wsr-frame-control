@@ -58,17 +58,27 @@ public class TCPDataReceiver implements Runnable {
 
         if (jomcw != null) {
             locomcw = new OMCWBuilder()
+                    .setLocalProgramEnabled(jomcw.getAsJsonPrimitive("localProgram").getAsBoolean())
+                    .setLocalPrerollEnabled(jomcw.getAsJsonPrimitive("localPreroll").getAsBoolean())
+                    .setAuxAudioEnabled(jomcw.getAsJsonPrimitive("auxAudio").getAsBoolean())
+                    .setRadarEnabled(jomcw.getAsJsonPrimitive("radar").getAsBoolean())
                     .setRegionSeparatorEnabled(jomcw.getAsJsonPrimitive("regionSeparator").getAsBoolean())
                     .setTopSolid(jomcw.getAsJsonPrimitive("topSolid").getAsBoolean())
                     .setBottomSolid(jomcw.getAsJsonPrimitive("bottomSolid").getAsBoolean())
                     .setTopPage(jomcw.getAsJsonPrimitive("topPage").getAsInt())
                     .setLdlPage(jomcw.getAsJsonPrimitive("ldlPage").getAsInt())
                     .build();
-            omcw.setRegionSeparatorEnabled(jomcw.getAsJsonPrimitive("regionSeparator").getAsBoolean())
+            omcw
+                    .setLocalProgramEnabled(jomcw.getAsJsonPrimitive("localProgram").getAsBoolean())
+                    .setLocalPrerollEnabled(jomcw.getAsJsonPrimitive("localPreroll").getAsBoolean())
+                    .setAuxAudioEnabled(jomcw.getAsJsonPrimitive("auxAudio").getAsBoolean())
+                    .setRadarEnabled(jomcw.getAsJsonPrimitive("radar").getAsBoolean())
+                    .setRegionSeparatorEnabled(jomcw.getAsJsonPrimitive("regionSeparator").getAsBoolean())
                     .setTopSolid(jomcw.getAsJsonPrimitive("topSolid").getAsBoolean())
                     .setBottomSolid(jomcw.getAsJsonPrimitive("bottomSolid").getAsBoolean())
                     .setTopPage(jomcw.getAsJsonPrimitive("topPage").getAsInt())
                     .setLdlPage(jomcw.getAsJsonPrimitive("ldlPage").getAsInt());
+            
         } else {
             throw new NullPointerException("No OMCW in JSON!");
         }
