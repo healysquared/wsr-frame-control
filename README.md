@@ -7,3 +7,5 @@ This project is far from complete. I will work on adding documentation soon for 
 ## Usage
 
 jr-frame-control.jar COMPORT TCPPORT
+
+## JSON Examples
