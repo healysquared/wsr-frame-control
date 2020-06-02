@@ -78,25 +78,6 @@ public class Main
         while (true) { 
            if(queue.isEmpty())
            {
-               //Idle. Queue is empty.
-               /*
-           DataFrame[] idleframe = new PageBuilder(63)
-                    .setOMCW(omcw.build())
-                    .setPageAttributes(new PageAttributes(false, false, false, false, false, false))
-                    .setLineAttributes(
-                            new TextLineAttributes(false,true,false,true,0),
-                            new TextLineAttributes(false,true,false,false,1),
-                            new TextLineAttributes(false,true,false,true,2),
-                            new TextLineAttributes(false,true,false,true,3),
-                            new TextLineAttributes(false,true,false,true,4),
-                            new TextLineAttributes(false,true,false,true,5),
-                            new TextLineAttributes(false,true,false,true,6),
-                            new TextLineAttributes(false,true,false,true,7)
-                            )
-                            .addLine(1, " ", 1, 0)
-                            .setAddress(new Address(1,2,3,4))
-                    .build(); 
-                */
                DataFrame[] idleframe = new TODBuilder()
                 .setOMCW(omcw.build())
                     .setTimeZone(2)
