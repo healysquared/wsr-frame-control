@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Main
 {
-    final static String VERSION = "1.0-DEV";
+    final static String VERSION = "MASTER";
     static SerialPort comPort;
     
     
