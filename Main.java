@@ -25,6 +25,12 @@ public class Main
 
         String commPort = args[0];
         int tcpPort = Integer.parseInt(args[1]);
+        
+        //Delay in milliseconds.
+        int delay = Integer.parseInt(args[2]);
+        
+        if(delay == null)
+           delay = 20;
         Log.info("Using COM Port" + commPort + " & using tcp port" + 
                 Integer.toString(tcpPort));
               
@@ -109,7 +115,7 @@ public class Main
             comPort.readBytes(new byte[1], 1);
             try 
             {
-                Thread.sleep(20);
+                Thread.sleep(delay);
             }
             catch (Exception e)
             {
@@ -124,7 +130,7 @@ public class Main
         comPort.writeBytes(frameBytes, frameBytes.length, 0);
         comPort.readBytes(new byte[1], 1);
         try {
-            Thread.sleep(20);
+            Thread.sleep(delau);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e);
