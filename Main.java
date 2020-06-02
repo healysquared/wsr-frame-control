@@ -21,8 +21,7 @@ public class Main
     public static void main(String[] args) throws IOException 
     {
         //The line of information that will be displayed when the program initially starts.
-        Log.info("WeatherSTAR Jr Frame Control Program v" + VERSION +
-                "\n(C) 2019 The WSRProject.\nThis project is in no way associated with IBM, The Weather Channel, or it's subsidiaries.");
+        Log.info("WSR Frame Control v" + VERSION);
 
         String commPort = args[0];
         int tcpPort = Integer.parseInt(args[1]);
@@ -46,7 +45,7 @@ public class Main
         //Setup serial nonsense
         comPort = SerialPort.getCommPort(commPort);
         comPort.setComPortParameters(115200, 8, 1, 0);
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 1000, 0);
+        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 5, 0);
         comPort.addDataListener(new SerialPortDataListener() {
             @Override
             public int getListeningEvents() {
