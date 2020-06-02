@@ -8,4 +8,6 @@ This project is far from complete. I will work on adding documentation soon for 
 
 jr-frame-control.jar COMPORT TCPPORT DELAY
 
-## JSON Examples
+## Libraries
+
+This project uses the jSerialComm (https://github.com/Fazecast/jSerialComm) and the Google Gson library (https://github.com/google/gson)
