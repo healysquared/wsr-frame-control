@@ -8,10 +8,6 @@ import java.util.*;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * This class controls the entire program. Can't do much without it. :~)
- */
-
 public class Main
 {
     final static String VERSION = "MASTER";

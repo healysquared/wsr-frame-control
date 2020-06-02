@@ -7,8 +7,6 @@ import java.util.Date;
  */
 public class Log {
     private static final DateFormat dateFormat = new SimpleDateFormat("[yyyy.MM.dd HH:mm:ss.SSS]");
-    //private static Date date = new Date();
-    //static String dt = dateFormat.format(date);
 
     public static void info(String a) {
         System.out.println(dateFormat.format(new Date()) + " INFO: " + a);
